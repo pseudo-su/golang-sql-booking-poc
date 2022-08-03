@@ -1,0 +1,8 @@
+.DS_Store
+
+/.envrc
+/.env*.local
+
+/tools/*
+!/tools/tools.cfg
+!/tools/tools.mk

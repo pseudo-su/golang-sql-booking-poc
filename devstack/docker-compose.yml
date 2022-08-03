@@ -1,0 +1,48 @@
+version: "3"
+services:
+
+  devstack:
+    image: tianon/true
+    restart: "no"
+    depends_on:
+      - devstack_tools
+      - devstack_app_deps
+
+  devstack_app_deps:
+    image: tianon/true
+    restart: "no"
+    depends_on:
+      - postgres
+
+  devstack_tools:
+    image: tianon/true
+    restart: "no"
+    depends_on:
+      - pgadmin
+
+  postgres:
+    container_name: gsbp_postgres
+    image: postgres:latest
+    command: ["postgres", "-c", "log_statement=all"]
+    ports:
+      - "5432:5432"
+    env_file:
+      - ./.env
+    volumes:
+      - ./postgres/init:/docker-entrypoint-initdb.d
+      - postgres_data:/var/lib/postgresql/data
+
+  pgadmin:
+    container_name: gsbp_pgadmin
+    image: dpage/pgadmin4:5.4
+    env_file:
+      - ./.env
+    depends_on:
+      - "postgres"
+    ports:
+      - 5050:5050
+    volumes:
+      - "./pgadmin/config/servers.json:/pgadmin4/servers.json"
+
+volumes:
+  postgres_data:
