@@ -50,7 +50,16 @@ sdk env use
 ### Commands
 
 ```sh
-# Start the debstack (postgres & pgadmin in docker-compose.yml)
+# Install dependencies
+make deps.install
+
+# Run code verification
+make verify
+
+# Run code verification applying auto-fixes where possible
+make verify.fix
+
+# Start the debstack (postgres & pgadmin in devstack/docker-compose.yml)
 make devstack.start
 
 # Run migrations
