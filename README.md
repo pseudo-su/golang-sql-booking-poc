@@ -75,13 +75,14 @@ make devstack.start
   up
 
 # Generate Jet query builder
+rm -r ./internal/jet
+
 go run github.com/go-jet/jet/v2/cmd/jet@latest \
   -dsn="postgres://root:1234@localhost:5432/golang_sql_booking_poc_dev?sslmode=disable" \
   -schema=public \
   -path ./internal/jet
 
-mv ./internal/jet/golang_sql_booking_poc_dev/public/model ./internal/jet/model
-mv ./internal/jet/golang_sql_booking_poc_dev/public/table ./internal/jet/table
+cp -r ./internal/jet/golang_sql_booking_poc_dev/public/* ./internal/jet
 
 rm -r ./internal/jet/golang_sql_booking_poc_dev
 
