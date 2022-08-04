@@ -1,0 +1,66 @@
+@startuml booking_example_puml
+
+title Booking example data model
+
+
+entity "Bookings" as bk {
+  *id: number <<PK>>
+  --
+  *hub_id: number <<FK>>
+  *booked_by_id: number <<FK>>
+  *reserved_qty: number
+  *status: string
+  *start_date: datetime
+   start_time: time
+  *end_date: datetime
+   end_time: time
+  *created_at: timestamp
+   updated_at: timestamp
+   deleted_at: timestamp
+}
+
+entity "Booking_User" as bu {
+  *booking_id: number <<FK>>
+  *user_id: number <<FK>>
+  --
+  *date: date
+  *status: string
+}
+
+entity "Users" as usr {
+  *id: number <<PK>>
+  --
+  *first_name: string
+  *last_name: string
+  *email: string
+  *status: string
+  *created_at: timestamp
+   updated_at: timestamp
+   deleted_at: timestamp
+}
+
+entity "Hubs" as hb {
+  *id: number <<PK>>
+  --
+  *name: string
+  *address: string
+  *postcode: string
+  *country: string
+  *phone: string
+   latitude: number
+   longitude: number
+  *capacity: number
+  *status: string
+  *map_image_url: string
+  *hub_colour: string
+  *timezone: string
+  *created_at: timestamp
+   updated_at: timestamp
+   deleted_at: timestamp
+}
+
+bk }o--|| hb
+bu }|--|| bk
+bu }|--|| usr
+
+@enduml

@@ -49,16 +49,37 @@ sdk env use
 
 ### Commands
 
+After checking out the repository you should be able to run these commands in sequence to setup and verify your local development environment.
+
 ```sh
-# Install dependencies
+# Install/setup tool deps
 make deps.install
 
-# Run code verification
+# Verify code using static analysis tools (eg golangci-lint)
 make verify
 
-# Run code verification applying auto-fixes where possible
+# Verify code using static analysis tools and automatically apply fixes when possible
 make verify.fix
 
+# Run all code generation
+make codegen
+
+# Verify empty git diff after codegen
+make verify.empty-git-diff
+
+# Run unit tests
+make test.unit
+
+# Start the "devstack" locally (external dependencies)
+make devstack.start
+
+# Execute the integration tests
+make test.integration
+```
+
+Other commands (WIP)
+
+```sh
 # Start the debstack (postgres & pgadmin in devstack/docker-compose.yml)
 make devstack.start
 
